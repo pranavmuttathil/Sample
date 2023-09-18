@@ -1,7 +1,8 @@
+from flask import Flask
+import urllib
 import post
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth;
-import base64;
 import speech_recognition as sr;
 
 # Establishment of the speech recognition tool
@@ -17,23 +18,38 @@ with mic as source:
     r.recognize_google(audio)
     print("user said:" + audio )
 
-#defining scopes
-scope = "user-library-read"
+
+
+def getaccesstoken(self):
+    webbrowser.open_new(self.__urlCode)
+    Spotify.Server.run()
+    self.__code = Spotify.Server.code
+
+    self.__body_params = {
+    'grant_type': self.__grant_type,
+      'code': self.__code,
+    'redirect_uri': self.__redirect,
+                }
+
+            #getting access_token by POST request to Spotify API
+    response = requests.post(
+                self.__url,
+                data=self.__body_params,
+                auth=(
+                    self.__client_id,
+                    self.__client_secret
+                )
+            ).json()
+   
+
+spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+port_number = 3000;
+spotify_client_id = "9d51ddbc07584c89b6f5419171bd5fa7";
+spotify_client_secret = '927413202b5a4f4884cef2084b5c0467';
+spotify_redicrt_url = 'http://localhost:3000'
 
 
 
-
-def generate_token():
-    auth_string = client_id + " : " +client_secret
-    auth_bytes = auth.string.encode("utf-8")
-    auth_base64_string = str(base64.b64encode(auth_bytes),"utf-8") 
-    headers = {
-        "Authorization" : "Basic" + auth_base64_string,
-    }
-
-
-
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 #listing the searched tracks from the artist
 results = sp.current_user_saved_tracks()
 for idx, item in enumerate(results['items']):
@@ -48,9 +64,17 @@ with mic as source:
     song_name = r.recognize_google();
     r.adjust_for_ambient_noise(source)
 
+current_song_playing = sp.currently_playing;
+last_songs = sp.current_user_recently_played;
+for i in range(3):
+ last_three_songs.append();
+ last_three_songs = {last_songs}
+
+
+
 
 print("The user is " + sp.current_user)
-print("The track playing is " + sp.currently_playing)
+print("The track playing is " + current_song_playing);
 
 
   
