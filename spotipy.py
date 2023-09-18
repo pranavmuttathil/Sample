@@ -17,8 +17,12 @@ with mic as source:
     audio = r.listen(source)
     r.recognize_google(audio)
     print("user said:" + audio )
-
-
+ 
+spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+port_number = 3000;
+spotify_client_id = "9d51ddbc07584c89b6f5419171bd5fa7";
+spotify_client_secret = '927413202b5a4f4884cef2084b5c0467';
+spotify_redicrt_url = 'http://localhost:3000'
 
 def getaccesstoken(self):
     webbrowser.open_new(self.__urlCode)
@@ -40,21 +44,7 @@ def getaccesstoken(self):
                     self.__client_secret
                 )
             ).json()
-   
 
-spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
-port_number = 3000;
-spotify_client_id = "9d51ddbc07584c89b6f5419171bd5fa7";
-spotify_client_secret = '927413202b5a4f4884cef2084b5c0467';
-spotify_redicrt_url = 'http://localhost:3000'
-
-
-
-#listing the searched tracks from the artist
-results = sp.current_user_saved_tracks()
-for idx, item in enumerate(results['items']):
-    track = item['track']
-    print(idx, track['artists'][0]['name'], " = ", track['name'])
 
 
 # sp = spotipy.Spotify();
