@@ -3,6 +3,7 @@ import urllib
 import post
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth;
+from spotipy.oauth2 import SpotifyClientCredentials
 import speech_recognition as sr;
 
 # Establishment of the speech recognition tool
@@ -25,18 +26,13 @@ spotify_client_secret = '927413202b5a4f4884cef2084b5c0467';
 spotify_redicrt_url = 'http://localhost:3000'
 
 def getaccesstoken(self):
-    webbrowser.open_new(self.__urlCode)
-    Spotify.Server.run()
-    self.__code = Spotify.Server.code
+ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id="spotify_client_id",
+                                               client_secret="spotify_client_secret",
+                                               redirect_uri="spotify_redicrt_url",
+                                               scope="user-library-read"))
 
-    self.__body_params = {
-    'grant_type': self.__grant_type,
-      'code': self.__code,
-    'redirect_uri': self.__redirect,
-                }
-
-            #getting access_token by POST request to Spotify API
-    response = requests.post(
+#getting access_token by POST request to Spotify API
+response = requests.post(
                 self.__url,
                 data=self.__body_params,
                 auth=(
@@ -45,10 +41,7 @@ def getaccesstoken(self):
                 )
             ).json()
 
-
-
-# sp = spotipy.Spotify();
-# artist = sp.artist(urn);
+artist = sp.artist(urn);
 print("Name of the song you want to play")
 with mic as source:
     song_name = r.recognize_google();
@@ -57,14 +50,10 @@ with mic as source:
 current_song_playing = sp.currently_playing;
 last_songs = sp.current_user_recently_played;
 for i in range(3):
- last_three_songs.append();
- last_three_songs = {last_songs}
-
-
+    last_three_songs.append();
+    last_three_songs = {last_songs}
 
 
 print("The user is " + sp.current_user)
 print("The track playing is " + current_song_playing);
-
-
   
